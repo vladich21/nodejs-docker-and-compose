@@ -11,16 +11,17 @@ import { Wish } from './wishes/entities/wish.entity';
 import { Wishlist } from './wishlists/entities/wishlist.entity';
 import { Offer } from './offers/entities/offer.entity';
 import { AuthModule } from './auth/auth.module';
+import { getRequiredEnv } from './config/env';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: getRequiredEnv('POSTGRES_HOST'),
       port: 5432,
-      username: 'student',
-      password: 'student',
-      database: 'kupipodariday',
+      username: getRequiredEnv('POSTGRES_USER'),
+      password: getRequiredEnv('POSTGRES_PASSWORD'),
+      database: getRequiredEnv('POSTGRES_DB'),
       entities: [User, Wish, Wishlist, Offer],
       synchronize: true,
     }),

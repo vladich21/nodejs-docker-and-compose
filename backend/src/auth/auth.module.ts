@@ -7,6 +7,7 @@ import { UsersModule } from '../users/users.module';
 import { HashModule } from '../hash/hash.module';
 import { LocalStrategy } from './local.strategy';
 import { JwtStrategy } from './jwt.strategy';
+import { getRequiredEnv } from '../config/env';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { JwtStrategy } from './jwt.strategy';
     HashModule,
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET ?? 'jwt-secret-key',
+      secret: getRequiredEnv('JWT_SECRET'),
       signOptions: { expiresIn: '7d' },
     }),
   ],
